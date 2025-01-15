@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6398b5305ad4007b5ef5d5b2536e39c2b9d18612fdd2cfe170b5dcb596926627
-size 339
+{
+"objects":
+[
+{
+"name": "anObject1",
+"xPos": "0.000000", 
+"yPos": "0.000000", 
+"zPos": "0.000000", 
+"xRot": "0.000000", 
+"yRot": "0.000000", 
+"zRot": "0.000000"
+},
+{
+"name": "anObject2",
+"xPos": "0.000000", 
+"yPos": "0.000000", 
+"zPos": "0.000000", 
+"xRot": "0.000000", 
+"yRot": "0.000000", 
+"zRot": "0.000000"
+}
+]
+}

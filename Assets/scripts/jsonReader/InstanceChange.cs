@@ -1,3 +1,35 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:27e56106aac9b28120c7dec55bb385e7507778eca46e231199df63628a31de28
-size 724
+using UnityEngine;
+
+public class InstanceChange : MonoBehaviour
+{
+	public ClassesChange myObject;
+	public TextAsset json;
+	private GameObject model;
+	
+	void Awake()
+	{
+		JsonUtility.FromJsonOverwrite(json.text, myObject);
+	}
+	
+	void Start()
+	{
+		Generate();
+	}
+	
+	void Generate()
+	{
+		foreach (MyClassChange objects in myObject.objects)
+		{
+			if (Resources.Load(objects.name))
+			{
+				model = Instantiate(Resources.Load(objects.name) as GameObject, new Vector3(
+				float.Parse(objects.xPos), 
+				float.Parse(objects.yPos), 
+				float.Parse(objects.zPos)), Quaternion.Euler(
+				float.Parse(objects.xRot), 
+				float.Parse(objects.yRot), 
+				float.Parse(objects.zRot)));
+			}
+		}
+	}
+}

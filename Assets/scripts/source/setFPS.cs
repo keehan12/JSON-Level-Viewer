@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c891b5c2b36b8d83613852c5468df68337bf155a5584ee47489444544116346b
-size 302
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+ public class setFPS : MonoBehaviour
+ {
+     public int targetFrameRate = 30;
+ 
+     private void Start()
+     {
+         QualitySettings.vSyncCount = 0;
+         Application.targetFrameRate = targetFrameRate;
+     }
+ }
