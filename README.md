@@ -14,7 +14,9 @@ F to Enable graphics mode 1
 
 J to Export .json
 
-R to restart
+G to Toggle fullscreen
+
+R to Restart
 
 ESC to show cursor and quit
 
