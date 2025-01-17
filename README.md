@@ -17,6 +17,8 @@ G to Toggle fullscreen
 
 R to Restart
 
+C to Duplicate selection
+
 ESC to Show cursor and quit
 
 ![alt text](https://keehanroberts.com/images/github/json_viewer_1.png "JSON Level Viewer Screenshot 1")
