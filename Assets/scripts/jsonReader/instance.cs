@@ -15,6 +15,8 @@ public class instance : MonoBehaviour
 	private selector selectorScript;
 	private editSelection editSelectionScript;
 	public string duplicate;
+	
+	public Vector3 offsetAngle;
 
 	void Start()
 	{
@@ -45,18 +47,29 @@ public class instance : MonoBehaviour
 			float.Parse(objects.xPos), 
 			float.Parse(objects.yPos), 
 			float.Parse(objects.zPos)), Quaternion.Euler(
-			float.Parse(objects.xRot), 
-			float.Parse(objects.yRot),
-			float.Parse(objects.zRot)));
+			float.Parse(objects.xRot) + offsetAngle.x, 
+			float.Parse(objects.yRot) + offsetAngle.y,
+			float.Parse(objects.zRot) + offsetAngle.z));
 			
 			model.name = model.name.Replace("(Clone)","").Trim();
 			model.AddComponent<reader>();
+			
+			Transform modelChild = model.transform.GetChild(0);
+			
+			for(var i = 0; i < modelChild.transform.childCount + i; i++)
+			{
+				modelChild.GetChild(0).SetParent(model.transform);
+			}
+			
 			foreach (Transform child in model.transform)
 			{
-				Material[] materials = child.gameObject.GetComponent<Renderer>().materials;
-				foreach (Material material in materials)
+				if (child.GetComponent<Renderer>())
 				{
-				material.shader = Shader.Find("Custom/Transparent/Diffuse Cutout");
+					Material[] materials = child.gameObject.GetComponent<Renderer>().materials;
+					foreach (Material material in materials)
+					{
+						//material.shader = Shader.Find("Custom/Transparent/Diffuse Cutout");
+					}
 				}
 				MeshCollider modelCollider = child.gameObject.AddComponent<MeshCollider>() as MeshCollider;
 				child.gameObject.AddComponent<selection>();
@@ -68,27 +81,39 @@ public class instance : MonoBehaviour
 	
 	public void DuplicateModel(GameObject selection)
 	{
-			model = Instantiate(Resources.Load(name + "/" + selection.name) as GameObject, new Vector3(
-			selection.transform.position.x, 
-			selection.transform.position.y, 
-			selection.transform.position.z), Quaternion.Euler(
-			selection.transform.rotation.x, 
-			selection.transform.rotation.y, 
-			selection.transform.rotation.z));
-			
-			model.name = model.name.Replace("(Clone)","").Trim();
-			model.AddComponent<reader>();
-			foreach (Transform child in model.transform)
+		model = Instantiate(Resources.Load(name + "/" + selection.name) as GameObject, new Vector3(
+		selection.transform.position.x, 
+		selection.transform.position.y, 
+		selection.transform.position.z), Quaternion.Euler(
+		selection.transform.rotation.x + offsetAngle.x, 
+		selection.transform.rotation.y + offsetAngle.y, 
+		selection.transform.rotation.z + offsetAngle.z));
+		
+		model.name = model.name.Replace("(Clone)","").Trim();
+		model.AddComponent<reader>();
+		
+		Transform modelChild = model.transform.GetChild(0);
+		
+		for(var i = 0; i < modelChild.transform.childCount + i; i++)
+		{
+			modelChild.GetChild(0).SetParent(model.transform);
+		}
+		
+		foreach (Transform child in model.transform)
+		{
+			if (child.GetComponent<Renderer>())
 			{
 				Material[] materials = child.gameObject.GetComponent<Renderer>().materials;
 				foreach (Material material in materials)
 				{
-				material.shader = Shader.Find("Custom/Transparent/Diffuse Cutout");
+					//material.shader = Shader.Find("Custom/Transparent/Diffuse Cutout");
 				}
-				MeshCollider modelCollider = child.gameObject.AddComponent<MeshCollider>() as MeshCollider;
-				child.gameObject.AddComponent<selection>();
-				models.Add(child.gameObject);
 			}
+			MeshCollider modelCollider = child.gameObject.AddComponent<MeshCollider>() as MeshCollider;
+			child.gameObject.AddComponent<selection>();
+			models.Add(child.gameObject);
+		}
+		Debug.Log(model);
 	}
 	
 	void SetModelsList()
