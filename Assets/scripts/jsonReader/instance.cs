@@ -7,7 +7,6 @@ using UnityEditor;
 
 public class instance : MonoBehaviour
 {
-	public string fileExtension = "obj";
 	public instanceClasses myObject;
 	public string[] json;
 	private GameObject model;
@@ -54,8 +53,12 @@ public class instance : MonoBehaviour
 			model.AddComponent<reader>();
 			foreach (Transform child in model.transform)
 			{
+				Material[] materials = child.gameObject.GetComponent<Renderer>().materials;
+				foreach (Material material in materials)
+				{
+				material.shader = Shader.Find("Custom/Transparent/Diffuse Cutout");
+				}
 				MeshCollider modelCollider = child.gameObject.AddComponent<MeshCollider>() as MeshCollider;
-				child.gameObject.GetComponent<Renderer>().material.shader = Shader.Find("Custom/Transparent/Diffuse Cutout");
 				child.gameObject.AddComponent<selection>();
 				models.Add(child.gameObject);
 			}
@@ -77,8 +80,12 @@ public class instance : MonoBehaviour
 			model.AddComponent<reader>();
 			foreach (Transform child in model.transform)
 			{
+				Material[] materials = child.gameObject.GetComponent<Renderer>().materials;
+				foreach (Material material in materials)
+				{
+				material.shader = Shader.Find("Custom/Transparent/Diffuse Cutout");
+				}
 				MeshCollider modelCollider = child.gameObject.AddComponent<MeshCollider>() as MeshCollider;
-				child.gameObject.GetComponent<Renderer>().material.shader = Shader.Find("Custom/Transparent/Diffuse Cutout");
 				child.gameObject.AddComponent<selection>();
 				models.Add(child.gameObject);
 			}
