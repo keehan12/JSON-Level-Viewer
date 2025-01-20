@@ -111,8 +111,10 @@ public class instance : MonoBehaviour
 			}
 			MeshCollider modelCollider = child.gameObject.AddComponent<MeshCollider>() as MeshCollider;
 			child.gameObject.AddComponent<selection>();
+			child.GetComponent<selection>().Select();
 			models.Add(child.gameObject);
 		}
+		editSelectionScript.selection = model;
 		Debug.Log(model);
 	}
 	

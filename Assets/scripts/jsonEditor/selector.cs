@@ -28,7 +28,7 @@ public class selector : MonoBehaviour
 			{
 				if (editSelectionScript.selection != null)
 				{
-					Unselect();
+					editSelectionScript.selection = null;
 				}
 				
 				if (hit.transform.parent.gameObject == editSelectionScript.selection)
@@ -42,6 +42,7 @@ public class selector : MonoBehaviour
 					{
 						editSelectionScript.selection = hit.transform.parent.gameObject;
 						hit.transform.gameObject.GetComponent<selection>().Select();
+						Debug.Log(hit.transform.parent.gameObject.name);
 					}
 				}
 			}
@@ -49,21 +50,8 @@ public class selector : MonoBehaviour
 			{
 				if (editSelectionScript.selection != null)
 				{
-					Unselect();
+					editSelectionScript.selection = null;
 				}
-				editSelectionScript.selection = null;
-			}
-		}
-	}
-	
-	void Unselect()
-	{
-		//Unselect
-		foreach (GameObject model in models)
-		{
-			if (model.GetComponent<selection>().selected == true)
-			{
-				model.GetComponent<selection>().Unselect();
 			}
 		}
 	}
